@@ -5,8 +5,7 @@ module.exports = {
 	},
 	'extends': [
 		'eslint:recommended',
-		'plugin:@typescript-eslint/recommended',
-		'plugin:react/recommended'
+		'plugin:@typescript-eslint/recommended'
 	],
 	'overrides': [
 		{
@@ -27,8 +26,7 @@ module.exports = {
 		'sourceType': 'module'
 	},
 	'plugins': [
-		'@typescript-eslint',
-		'react'
+		'@typescript-eslint'
 	],
 	'rules': {
 		'indent': [
@@ -46,10 +44,6 @@ module.exports = {
 		'semi': [
 			'error',
 			'always'
-		],
-		'react/react-in-jsx-scope': 'off',
-		'react/jsx-uses-react': 'off',
-		'react/display-name': 'off',
-		'react/prop-type': 'off'
+		]
 	}
 };
