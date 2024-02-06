@@ -3,6 +3,7 @@ import {createBrowserRouter} from 'react-router-dom';
 import {AppLayout} from '@layouts/AppLayout';
 import {RoomCreatingScreen} from '@screens/RoomCreatingScreen';
 import {RoomScreen} from '@screens/RoomScreen';
+import {LoginScreen} from '@screens/LoginScreen';
 
 export const router = createBrowserRouter([
 	{
@@ -12,6 +13,10 @@ export const router = createBrowserRouter([
 			{
 				path: '',
 				Component: RoomCreatingScreen
+			},
+			{
+				path: 'login',
+				Component: LoginScreen
 			},
 			{
 				path: ':roomId',

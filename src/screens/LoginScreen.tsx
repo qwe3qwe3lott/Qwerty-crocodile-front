@@ -1,9 +1,13 @@
-import {memo} from 'react';
+import {memo, useCallback} from 'react';
 import {LoginPage} from '@features/auth/pages/LoginPage';
 import {useAuthStore} from '@features/auth/auth.store';
 
 export const LoginScreen = memo(() => {
-	const {login} = useAuthStore();
+	const {login, setLogin} = useAuthStore();
 
-	return <LoginPage login={login}/>;
+	const handleSubmit = useCallback((login: string) => {
+		setLogin(login);
+	}, []);
+
+	return <LoginPage initialLogin={login} onSubmit={handleSubmit}/>;
 });
