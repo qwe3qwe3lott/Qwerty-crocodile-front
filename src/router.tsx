@@ -1,9 +1,9 @@
 import {createBrowserRouter} from 'react-router-dom';
 
 import {AppLayout} from '@layouts/AppLayout';
-import {RoomCreatingScreen} from '@screens/RoomCreatingScreen';
-import {RoomScreen} from '@screens/RoomScreen';
-import {LoginScreen} from '@screens/LoginScreen';
+import {RoomCreatingScreen} from '@crocodile/screens/RoomCreatingScreen';
+import {RoomScreen} from '@crocodile/screens/RoomScreen';
+import {LoginScreen} from '@auth/screens/LoginScreen';
 
 export const router = createBrowserRouter([
 	{

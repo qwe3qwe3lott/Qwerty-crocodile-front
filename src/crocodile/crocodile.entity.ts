@@ -1,0 +1,1 @@
+export type RoomCreatingFormState = Record<string, never>

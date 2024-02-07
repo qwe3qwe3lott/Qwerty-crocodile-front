@@ -1,7 +1,7 @@
 import {memo, useCallback, useMemo} from 'react';
 import {Content} from '@ui/Content';
-import {LoginForm} from '@features/auth/components/LoginForm';
-import {LoginFormState} from '@features/auth/auth.entity';
+import {LoginForm} from '@auth/components/LoginForm';
+import {LoginFormState} from '@auth/auth.entity';
 
 type Props = {
     initialLogin: string;

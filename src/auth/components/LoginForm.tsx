@@ -1,6 +1,6 @@
 import {memo} from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import {LoginFormState} from '@features/auth/auth.entity';
+import {LoginFormState} from '@auth/auth.entity';
 import {Input} from '@ui/Input';
 import {Button} from '@ui/Button';
 

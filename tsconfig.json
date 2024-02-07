@@ -11,9 +11,9 @@
     "moduleResolution": "bundler",
     "useDefineForClassFields": true,
     "paths": {
-      "@features/*": ["./src/features/*"],
+      "@auth/*": ["./src/auth/*"],
+      "@crocodile/*": ["./src/crocodile/*"],
       "@layouts/*": ["./src/layouts/*"],
-      "@screens/*": ["./src/screens/*"],
       "@ui/*": ["./src/ui/*"]
     }
   },
