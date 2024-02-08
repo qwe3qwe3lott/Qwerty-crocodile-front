@@ -1,13 +1,13 @@
-import {Outlet} from 'react-router-dom';
-import {memo, useEffect, useState} from 'react';
-import {authStoreLoginSelector, useAuthStore} from '@auth/auth.store';
-import {LoginScreen} from '@auth/screens/LoginScreen';
-import {socket} from '@crocodile/crocodile.api';
+import { Outlet } from 'react-router-dom';
+import { memo, useEffect, useState } from 'react';
+import { authStoreLoginSelector, useAuthStore } from '@auth/auth.store';
+import { LoginScreen } from '@auth/screens/LoginScreen';
+import { socket } from '@crocodile/crocodile.api';
 
 export const AppLayout = memo(() => {
 	const login = useAuthStore(authStoreLoginSelector);
 
-	const [isConnected, setConnected] = useState(socket.connected);
+	const [ isConnected, setConnected ] = useState(socket.connected);
 
 	useEffect(() => {
 		socket.on('connect', () => {

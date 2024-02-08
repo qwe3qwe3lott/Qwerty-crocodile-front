@@ -1,6 +1,6 @@
-export type RoomCreatingFormState = Record<string, never>
+export type RoomCreatingFormState = Record<string, never>;
 
 export type User = {
-    id: string;
-    login: string;
-}
+	id: string;
+	login: string;
+};

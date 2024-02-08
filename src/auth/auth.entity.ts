@@ -1,3 +1,3 @@
 export type LoginFormState = {
-    login: string;
-}
+	login: string;
+};
