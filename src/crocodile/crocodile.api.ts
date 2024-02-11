@@ -7,13 +7,15 @@ type ResponseData<TSuccess extends Record<string, unknown> = Record<string, unkn
 
 type ServerToClientEvents = {
 	users: (users: User[]) => void
+	ownerId: (ownerId: string) => void
 };
 
 type ClientToServerEvents = {
 	createRoom: (payload: null, cb: (response: ResponseData<{ roomId: string }>) => void) => void;
 	joinRoom: (payload: { roomId: string, userId?: string, login: string }, cb: (response: ResponseData<{
 		userId: string,
-		users: User[]
+		users: User[],
+		ownerId: string,
 	}>) => void) => void;
 	leaveRoom: (payload: null, cb: (response: ResponseData) => void) => void
 };
