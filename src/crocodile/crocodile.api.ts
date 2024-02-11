@@ -11,7 +11,7 @@ type ServerToClientEvents = {
 
 type ClientToServerEvents = {
 	createRoom: (payload: null, cb: (response: ResponseData<{ roomId: string }>) => void) => void;
-	joinRoom: (payload: { roomId: string, userId: string, login: string }, cb: (response: ResponseData<{
+	joinRoom: (payload: { roomId: string, userId?: string, login: string }, cb: (response: ResponseData<{
 		userId: string,
 		users: User[]
 	}>) => void) => void;

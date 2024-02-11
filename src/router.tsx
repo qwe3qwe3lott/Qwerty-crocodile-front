@@ -16,11 +16,11 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'login',
-				Component: LoginScreen
+				Component: LoginScreen,
 			},
 			{
 				path: ':roomId',
-				Component: RoomScreen
+				Component: RoomScreen,
 			}
 		]
 	}
