@@ -22,6 +22,9 @@
       ],
       "@crocodile/*": [
         "./src/crocodile/*"
+      ],
+      "@assets/*": [
+        "./src/assets/*"
       ]
     }
   },
