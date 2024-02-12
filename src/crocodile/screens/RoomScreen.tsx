@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useAuthStore } from '@auth/auth.store';
 import { socket } from '@crocodile/crocodile.api';
 import { roomStoreSelfUserIdSelector, useRoomStore } from '@crocodile/crocodile.store';
-import { User } from '@crocodile/crocodile.entity';
+import { DrawEvent, User } from '@crocodile/crocodile.entity';
 
 export const RoomScreen = memo(() => {
 	const { roomId } = useParams<{ roomId: string }>();
@@ -26,6 +26,10 @@ export const RoomScreen = memo(() => {
 			roomState.setOwnerId(ownerId);
 		};
 
+		const listenDrawEvents = (drawEvents: DrawEvent[]) => {
+			roomState.pushDrawEvents(drawEvents);
+		};
+
 		(async () => {
 			const authState = useAuthStore.getState();
 			const login = authState.login;
@@ -43,11 +47,13 @@ export const RoomScreen = memo(() => {
 
 			socket.on('users', listenUsers);
 			socket.on('ownerId', listenOwnerId);
+			socket.on('drawEvents', listenDrawEvents);
 		})();
 
 		return () => {
 			socket.removeListener('users', listenUsers);
 			socket.removeListener('ownerId', listenOwnerId);
+			socket.removeListener('drawEvents', listenDrawEvents);
 
 			roomState.reset();
 		};

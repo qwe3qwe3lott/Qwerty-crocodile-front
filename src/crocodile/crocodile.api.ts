@@ -6,8 +6,9 @@ type ResponseData<TSuccess extends Record<string, unknown> = Record<string, unkn
     | ({ _status: 'ERROR' } & TError);
 
 type ServerToClientEvents = {
-	users: (users: User[]) => void
-	ownerId: (ownerId: string) => void
+	users: (users: User[]) => void;
+	ownerId: (ownerId: string) => void;
+	drawEvents: (drawEvents: DrawEvent[]) => void;
 };
 
 type ClientToServerEvents = {
