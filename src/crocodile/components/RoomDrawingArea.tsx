@@ -5,7 +5,6 @@ import { DrawEvent, DrawingEvent, DrawingEventPayloadMap } from '@crocodile/croc
 import { roomStoreClearDrawEventsSelector, roomStoreDrawEventsSelector, useRoomStore } from '@crocodile/crocodile.store';
 import { throttle } from '@common/common.util';
 import { socket } from '@crocodile/crocodile.api';
-import { optimizeDrawEvents } from '@crocodile/crocodile.util';
 
 const WIDTH = 100;
 const HEIGHT = 141;
@@ -24,8 +23,8 @@ export const RoomDrawingArea = memo(() => {
 
 		drawEventsToSend.current = [];
 
-		await socket.emitWithAck('draw', optimizeDrawEvents(drawEvents));
-	}, 300), []);
+		await socket.emitWithAck('draw', drawEvents);
+	}, 100), []);
 
 	const handleDrawEvent = useCallback((event: DrawEvent) => {
 		drawingEmitterRef.current?.emit('draw', event);
