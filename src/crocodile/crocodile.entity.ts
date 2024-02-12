@@ -7,7 +7,8 @@ export type User = {
 
 export type DrawEvent =
     { type: 'line', color: string, width: number, x1: number, y1: number, x2: number, y2: number }
-    | { type: 'fill', color: string };
+    | { type: 'fill', color: string }
+    | { type: 'path', color: string, width: number, nodes: Array<{ x: number, y: number }> };
 
 export type DrawingEventPayloadMap = {
 	draw: DrawEvent

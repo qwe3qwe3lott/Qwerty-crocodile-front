@@ -3,18 +3,35 @@ import { RoomDrawingAreaCanvas } from '@crocodile/components/RoomDrawingAreaCanv
 import { Emitter } from '@common/common.emitter';
 import { DrawEvent, DrawingEvent, DrawingEventPayloadMap } from '@crocodile/crocodile.entity';
 import { roomStoreClearDrawEventsSelector, roomStoreDrawEventsSelector, useRoomStore } from '@crocodile/crocodile.store';
+import { throttle } from '@common/common.util';
+import { socket } from '@crocodile/crocodile.api';
+import { optimizeDrawEvents } from '@crocodile/crocodile.util';
 
 const WIDTH = 100;
 const HEIGHT = 141;
 
 export const RoomDrawingArea = memo(() => {
 	const drawingEmitterRef = useRef(new Emitter<DrawingEvent, DrawingEventPayloadMap>());
+	const drawEventsToSend = useRef<DrawEvent[]>([]);
+
 	const drawEvents = useRoomStore(roomStoreDrawEventsSelector);
 	const clearDrawEvents = useRoomStore(roomStoreClearDrawEventsSelector);
 
+	const sendDrawEvents = useCallback(throttle(async () => {
+		if (!drawEventsToSend.current) return;
+
+		const drawEvents = drawEventsToSend.current;
+
+		drawEventsToSend.current = [];
+
+		await socket.emitWithAck('draw', optimizeDrawEvents(drawEvents));
+	}, 300), []);
+
 	const handleDrawEvent = useCallback((event: DrawEvent) => {
 		drawingEmitterRef.current?.emit('draw', event);
-	}, []);
+		drawEventsToSend.current?.push(event);
+		sendDrawEvents();
+	}, [ sendDrawEvents ]);
 
 	useEffect(() => {
 		if (drawEvents.length) clearDrawEvents();

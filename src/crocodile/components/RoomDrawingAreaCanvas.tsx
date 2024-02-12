@@ -53,6 +53,17 @@ export const RoomDrawingAreaCanvas = memo<Props>(({ height, width, className, dr
 					ctx.lineTo(payload.x2, payload.y2);
 					ctx.stroke();
 					break;
+				case 'path':
+					ctx.strokeStyle = payload.color;
+					ctx.lineWidth = payload.width;
+					ctx.lineCap = 'round';
+					ctx.beginPath();
+					payload.nodes[0] && ctx.moveTo(payload.nodes[0].x, payload.nodes[0].y);
+					for (let i = 1; i < payload.nodes.length; i++) {
+						ctx.lineTo(payload.nodes[i].x, payload.nodes[i].y);
+					}
+					ctx.stroke();
+					break;
 				case 'fill':
 					ctx.fillStyle = payload.color;
 					ctx.fillRect(0, 0, width, height);
@@ -81,8 +92,8 @@ export const RoomDrawingAreaCanvas = memo<Props>(({ height, width, className, dr
 
 			const resolutionMultiplier = rect.width / width;
 
-			const x = (event.clientX - rect.left) / resolutionMultiplier;
-			const y = (event.clientY - rect.top) / resolutionMultiplier;
+			const x = Math.round(((event.clientX - rect.left) / resolutionMultiplier) * 1e2) / 1e2;
+			const y = Math.round(((event.clientY - rect.top) / resolutionMultiplier) * 1e2) / 1e2;
 
 			return { x, y };
 		};

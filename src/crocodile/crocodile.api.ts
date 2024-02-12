@@ -1,5 +1,5 @@
 import { io, Socket } from 'socket.io-client';
-import { User } from '@crocodile/crocodile.entity';
+import { DrawEvent, User } from '@crocodile/crocodile.entity';
 
 type ResponseData<TSuccess extends Record<string, unknown> = Record<string, unknown>, TError extends Record<string, unknown> = Record<string, unknown>> =
     ({ _status: 'OK' } & TSuccess)
@@ -17,7 +17,8 @@ type ClientToServerEvents = {
 		users: User[],
 		ownerId: string,
 	}>) => void) => void;
-	leaveRoom: (payload: null, cb: (response: ResponseData) => void) => void
+	leaveRoom: (payload: null, cb: (response: ResponseData) => void) => void;
+	draw: (payload: DrawEvent[], cb: (response: ResponseData) => void) => void;
 };
 
 type ClientSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
