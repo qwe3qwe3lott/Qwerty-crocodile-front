@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "target": "ES2021",
-    "lib": ["DOM", "ES2021"],
+    "lib": [
+      "DOM",
+      "ES2021"
+    ],
     "module": "ESNext",
     "jsx": "react-jsx",
     "strict": true,
@@ -11,11 +14,18 @@
     "moduleResolution": "bundler",
     "useDefineForClassFields": true,
     "paths": {
-      "@auth/*": ["./src/auth/*"],
-      "@crocodile/*": ["./src/crocodile/*"],
-      "@layouts/*": ["./src/layouts/*"],
-      "@ui/*": ["./src/ui/*"]
+      "@auth/*": [
+        "./src/auth/*"
+      ],
+      "@common/*": [
+        "./src/common/*"
+      ],
+      "@crocodile/*": [
+        "./src/crocodile/*"
+      ]
     }
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

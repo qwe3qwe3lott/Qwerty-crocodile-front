@@ -20,4 +20,4 @@ export const useAuthStore = create<AuthStore>()(persist((set, get) => ({
 	setRoomUserId: (roomId, userId) => set({ roomUserIdsMap: { ...get().roomUserIdsMap }, [roomId]: userId })
 }), { name: 'authStore' }));
 
-export const authStoreLoginSelector = (state: AuthStoreState) => state.login;
+export const authStoreLoginSelector = (state: AuthStore) => state.login;

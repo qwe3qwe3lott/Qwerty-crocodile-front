@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Content } from '@ui/Content';
+import { Content } from '@common/ui/Content';
 import { RoomUsersList } from '@crocodile/components/RoomUsersList';
 import { RoomDrawingArea } from '@crocodile/components/RoomDrawingArea';
 import { RoomControlsArea } from '@crocodile/components/RoomControlsArea';

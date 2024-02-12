@@ -1,5 +1,5 @@
 import { memo, useCallback, useMemo } from 'react';
-import { Content } from '@ui/Content';
+import { Content } from '@common/ui/Content';
 import { LoginForm } from '@auth/components/LoginForm';
 import { LoginFormState } from '@auth/auth.entity';
 
