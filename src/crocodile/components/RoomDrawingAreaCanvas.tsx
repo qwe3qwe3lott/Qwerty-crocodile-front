@@ -68,6 +68,12 @@ export const RoomDrawingAreaCanvas = memo<Props>(({ height, width, className, dr
 					ctx.fillStyle = payload.color;
 					ctx.fillRect(0, 0, width, height);
 					break;
+				case 'image': {
+					const buffer = new Uint8ClampedArray(payload.data);
+					const imageData = new ImageData(buffer, payload.width, payload.height);
+					ctx.putImageData(imageData, payload.x, payload.y);
+					break;
+				}
 			}
 		};
 

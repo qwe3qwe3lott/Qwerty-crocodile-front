@@ -15,7 +15,7 @@ export const RoomDrawingArea = memo(() => {
 
 	const drawEvents = useRoomStore(roomStoreDrawEventsSelector);
 	const clearDrawEvents = useRoomStore(roomStoreClearDrawEventsSelector);
-
+	
 	const sendDrawEvents = useCallback(throttle(async () => {
 		if (!drawEventsToSend.current) return;
 

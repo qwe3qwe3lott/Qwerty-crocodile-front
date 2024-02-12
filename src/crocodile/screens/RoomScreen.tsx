@@ -44,6 +44,7 @@ export const RoomScreen = memo(() => {
 			roomState.setSelfUserId(response.userId);
 			roomState.setUsers(response.users);
 			roomState.setOwnerId(response.ownerId);
+			roomState.pushDrawEvents(response.drawEvents);
 
 			socket.on('users', listenUsers);
 			socket.on('ownerId', listenOwnerId);

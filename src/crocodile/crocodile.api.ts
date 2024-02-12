@@ -17,6 +17,7 @@ type ClientToServerEvents = {
 		userId: string,
 		users: User[],
 		ownerId: string,
+		drawEvents: DrawEvent[],
 	}>) => void) => void;
 	leaveRoom: (payload: null, cb: (response: ResponseData) => void) => void;
 	draw: (payload: DrawEvent[], cb: (response: ResponseData) => void) => void;
