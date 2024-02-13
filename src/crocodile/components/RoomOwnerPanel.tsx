@@ -1,8 +1,8 @@
 import { memo, useCallback } from 'react';
 import { IconButton } from '@common/ui/IconButton';
-import { ProfileIcon } from '@common/ui/ProfileIcon';
 import { roomStoreStateSelector, roomStoreUsersSelector, useRoomStore } from '@crocodile/crocodile.store';
 import { socket } from '@crocodile/crocodile.api';
+import { PlayButton } from '@common/ui/PlayButton';
 
 export const RoomOwnerPanel = memo(() => {
 	const state = useRoomStore(roomStoreStateSelector);
@@ -15,6 +15,6 @@ export const RoomOwnerPanel = memo(() => {
 	const isAbleToStart = state === 'idle' && users.length >= 2;
 
 	return <div className="p-4 rounded-xl bg-amber-200 grid gap-2 place-items-center">
-		<IconButton Icon={ProfileIcon} disabled={!isAbleToStart} onClick={handleStartClick}/>
+		<IconButton Icon={PlayButton} disabled={!isAbleToStart} onClick={handleStartClick}/>
 	</div>;
 });
