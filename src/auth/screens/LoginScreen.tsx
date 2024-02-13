@@ -14,5 +14,10 @@ export const LoginScreen = memo(() => {
 		pathname === '/login' && navigate('/');
 	}, [ pathname, navigate ]);
 
-	return <LoginPage initialLogin={login} onSubmit={handleSubmit}/>;
+	return (
+		<LoginPage
+			initialLogin={login}
+			onSubmit={handleSubmit}
+		/>
+	);
 });

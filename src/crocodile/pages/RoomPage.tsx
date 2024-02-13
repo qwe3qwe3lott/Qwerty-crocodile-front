@@ -12,12 +12,16 @@ export const RoomPage = memo(() => {
 
 	const isOwner = selfUserId === ownerId;
 
-	return <Content className="grid grid-cols-[auto_1fr_auto] gap-8">
-		<div className="min-w-48 max-w-96 w-full h-full grid gap-4 grid-rows-[1fr_auto]">
-			<RoomUsersList/>
-			{isOwner && <RoomOwnerPanel/>}
-		</div>
-		<RoomDrawingArea/>
-		<RoomControlsArea/>
-	</Content>;
+	return (
+		<Content className="grid grid-cols-[auto_1fr_auto] gap-8">
+			<div
+				className="min-w-48 max-w-96 w-full h-full flex gap-4 flex-col"
+			>
+				<RoomUsersList/>
+				{isOwner && <RoomOwnerPanel/>}
+			</div>
+			<RoomDrawingArea/>
+			<RoomControlsArea/>
+		</Content>
+	);
 });

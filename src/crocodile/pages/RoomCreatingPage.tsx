@@ -8,7 +8,9 @@ type Props = {
 };
 
 export const RoomCreatingPage = memo<Props>(({ onSubmit }) => {
-	return <Content className={'grid place-items-center'}>
-		<RoomCreatingForm onSubmit={onSubmit}/>
-	</Content>;
+	return (
+		<Content className={'grid place-items-center'}>
+			<RoomCreatingForm onSubmit={onSubmit}/>
+		</Content>
+	);
 });
