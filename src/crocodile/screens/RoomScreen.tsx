@@ -57,6 +57,8 @@ export const RoomScreen = memo(() => {
 			socket.removeListener('drawEvents', listenDrawEvents);
 
 			roomState.reset();
+
+			socket.emitWithAck('leaveRoom', null);
 		};
 	}, []);
 
