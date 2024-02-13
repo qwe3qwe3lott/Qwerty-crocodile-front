@@ -1,6 +1,5 @@
 import { memo } from 'react';
 import { roomStoreOwnerIdSelector, roomStoreUsersSelector, useRoomStore } from '@crocodile/crocodile.store';
-import { ReactComponent } from '*.svg';
 import { ProfileIcon } from '@common/ui/ProfileIcon';
 
 export const RoomUsersList = memo(() => {
