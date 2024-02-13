@@ -8,9 +8,17 @@ type Props = {
 	className?: string;
 	drawingEmitterRef: RefObject<Emitter<DrawingEvent, DrawingEventPayloadMap>>
 	onDrawEvent: (event: DrawEvent) => void;
+	drawable: boolean;
 };
 
-export const RoomDrawingAreaCanvas = memo<Props>(({ height, width, className, drawingEmitterRef, onDrawEvent }) => {
+export const RoomDrawingAreaCanvas = memo<Props>(({
+	height,
+	width,
+	className,
+	drawingEmitterRef,
+	onDrawEvent,
+	drawable
+}) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
 	useEffect(() => {
@@ -87,7 +95,7 @@ export const RoomDrawingAreaCanvas = memo<Props>(({ height, width, className, dr
 	}, [ width, height ]);
 
 	useEffect(() => {
-		if (!canvasRef.current) return;
+		if (!canvasRef.current || !drawable) return;
 
 		let lastCoordinates: { x: number, y: number } | null = null;
 
@@ -157,7 +165,7 @@ export const RoomDrawingAreaCanvas = memo<Props>(({ height, width, className, dr
 			canvasRef.current.removeEventListener('mouseleave', finishDrawingListener);
 			canvasRef.current.removeEventListener('mousemove', drawingListener);
 		};
-	}, [ width, onDrawEvent ]);
+	}, [ width, onDrawEvent, drawable ]);
 
 	return <canvas style={{ imageRendering: 'pixelated' }} height={height} width={width} ref={canvasRef}
 		className={`cursor-crosshair ${className ?? ''}`}/>;

@@ -15,7 +15,7 @@ export const RoomDrawingArea = memo(() => {
 
 	const drawEvents = useRoomStore(roomStoreDrawEventsSelector);
 	const clearDrawEvents = useRoomStore(roomStoreClearDrawEventsSelector);
-	
+
 	const sendDrawEvents = useCallback(throttle(async () => {
 		if (!drawEventsToSend.current) return;
 
@@ -43,7 +43,7 @@ export const RoomDrawingArea = memo(() => {
 	return <div className="grid justify-items-center">
 		<div className="grid grid-cols-[1fr_min-content] gap-4">
 			<RoomDrawingAreaCanvas width={WIDTH} height={HEIGHT} className="h-full"
-				drawingEmitterRef={drawingEmitterRef} onDrawEvent={handleDrawEvent}/>
+				drawingEmitterRef={drawingEmitterRef} onDrawEvent={handleDrawEvent} drawable={true}/>
 			{/*<div>*/}
 			{/*	<button className="h-8 w-8 bg-amber-200">✐</button>*/}
 			{/*</div>*/}
