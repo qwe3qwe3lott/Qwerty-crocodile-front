@@ -1,43 +1,76 @@
 import { create } from 'zustand';
-import { DrawEvent, User } from '@crocodile/crocodile.entity';
+import { DrawEvent, Player, RoomState, StateTransaction, User } from '@crocodile/crocodile.entity';
+import { devtools } from 'zustand/middleware';
 
 type RoomStoreState = {
 	users: User[];
+	players: Player[];
 	selfUserId: string;
 	ownerId: string;
+	artistId: string;
 	drawEvents: DrawEvent[]
+	state: RoomState
 };
 
-const initialState: RoomStoreState = {
-	selfUserId: '',
+const generateInitialState = (): RoomStoreState => ({
 	users: [],
+	players: [],
+	selfUserId: '',
 	ownerId: '',
-	drawEvents: [ { type: 'fill', color: 'white' } ]
-};
+	artistId: '',
+	drawEvents: [ { type: 'fill', color: 'white' } ],
+	state: 'idle'
+});
 
 type RoomStoreActions = {
 	setUsers: (users: User[]) => void;
+	setPlayers: (players: Player[]) => void;
 	setSelfUserId: (selfUserId: string) => void;
 	setOwnerId: (ownerId: string) => void;
+	setArtistId: (artistId: string) => void;
 	pushDrawEvents: (drawEvents: DrawEvent[]) => void;
 	clearDrawEvents: () => void;
+	setState: (state: RoomState) => void;
+	applyStateTransaction: (transaction: StateTransaction) => void;
 	reset: () => void;
 };
 
 type RoomStore = RoomStoreState & RoomStoreActions;
 
-export const useRoomStore = create<RoomStore>()((set, get) => ({
-	...initialState,
-	setSelfUserId: (selfUserId) => set({ selfUserId }),
+export const useRoomStore = create<RoomStore>()(devtools((set, get) => ({
+	...generateInitialState(),
 	setUsers: (users) => set({ users }),
+	setPlayers: (players) => set({ players }),
+	setSelfUserId: (selfUserId) => set({ selfUserId }),
 	setOwnerId: (ownerId) => set({ ownerId }),
+	setArtistId: (artistId) => set({ artistId }),
 	pushDrawEvents: (drawEvents) => set({ drawEvents: [ ...get().drawEvents, ...drawEvents ] }),
 	clearDrawEvents: () => set({ drawEvents: [] }),
-	reset: () => set(initialState)
-}));
+	setState: (state) => set({ state }),
+	applyStateTransaction: (transaction) => {
+		switch (transaction.state) {
+			case 'idle': {
+				set({ state: transaction.state, players: [], artistId: '' });
+				break;
+			}
+			case 'round': {
+				set({ state: transaction.state, players: transaction.players, artistId: transaction.artistId });
+				break;
+			}
+			case 'timeout': {
+				set({ state: transaction.state });
+				break;
+			}
+		}
+	},
+	reset: () => set(generateInitialState())
+})));
 
 export const roomStoreUsersSelector = (state: RoomStore) => state.users;
+export const roomStorePlayersSelector = (state: RoomStore) => state.players;
 export const roomStoreSelfUserIdSelector = (state: RoomStore) => state.selfUserId;
 export const roomStoreOwnerIdSelector = (state: RoomStore) => state.ownerId;
+export const roomStoreArtistIdSelector = (state: RoomStore) => state.artistId;
 export const roomStoreDrawEventsSelector = (state: RoomStore) => state.drawEvents;
+export const roomStoreStateSelector = (state: RoomStore) => state.state;
 export const roomStoreClearDrawEventsSelector = (state: RoomStore) => state.clearDrawEvents;

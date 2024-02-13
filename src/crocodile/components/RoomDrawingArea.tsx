@@ -2,7 +2,13 @@ import { memo, useCallback, useEffect, useRef } from 'react';
 import { RoomDrawingAreaCanvas } from '@crocodile/components/RoomDrawingAreaCanvas';
 import { Emitter } from '@common/common.emitter';
 import { DrawEvent, DrawingEvent, DrawingEventPayloadMap } from '@crocodile/crocodile.entity';
-import { roomStoreClearDrawEventsSelector, roomStoreDrawEventsSelector, useRoomStore } from '@crocodile/crocodile.store';
+import {
+	roomStoreArtistIdSelector,
+	roomStoreClearDrawEventsSelector,
+	roomStoreDrawEventsSelector,
+	roomStoreSelfUserIdSelector,
+	useRoomStore
+} from '@crocodile/crocodile.store';
 import { throttle } from '@common/common.util';
 import { socket } from '@crocodile/crocodile.api';
 
@@ -15,6 +21,10 @@ export const RoomDrawingArea = memo(() => {
 
 	const drawEvents = useRoomStore(roomStoreDrawEventsSelector);
 	const clearDrawEvents = useRoomStore(roomStoreClearDrawEventsSelector);
+	const selfUserId = useRoomStore(roomStoreSelfUserIdSelector);
+	const artistId = useRoomStore(roomStoreArtistIdSelector);
+
+	const isArtist = selfUserId === artistId;
 
 	const sendDrawEvents = useCallback(throttle(async () => {
 		if (!drawEventsToSend.current) return;
@@ -43,7 +53,8 @@ export const RoomDrawingArea = memo(() => {
 	return <div className="grid justify-items-center">
 		<div className="grid grid-cols-[1fr_min-content] gap-4">
 			<RoomDrawingAreaCanvas width={WIDTH} height={HEIGHT} className="h-full"
-				drawingEmitterRef={drawingEmitterRef} onDrawEvent={handleDrawEvent} drawable={true}/>
+				drawingEmitterRef={drawingEmitterRef} onDrawEvent={handleDrawEvent}
+				drawable={isArtist}/>
 			{/*<div>*/}
 			{/*	<button className="h-8 w-8 bg-amber-200">✐</button>*/}
 			{/*</div>*/}

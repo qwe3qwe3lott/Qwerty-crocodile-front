@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useAuthStore } from '@auth/auth.store';
 import { socket } from '@crocodile/crocodile.api';
 import { roomStoreSelfUserIdSelector, useRoomStore } from '@crocodile/crocodile.store';
-import { DrawEvent, User } from '@crocodile/crocodile.entity';
+import { DrawEvent, StateTransaction, User } from '@crocodile/crocodile.entity';
 
 export const RoomScreen = memo(() => {
 	const { roomId } = useParams<{ roomId: string }>();
@@ -30,6 +30,10 @@ export const RoomScreen = memo(() => {
 			roomState.pushDrawEvents(drawEvents);
 		};
 
+		const listenStateTransaction = (stateTransaction: StateTransaction) => {
+			roomState.applyStateTransaction(stateTransaction);
+		};
+
 		(async () => {
 			const authState = useAuthStore.getState();
 			const login = authState.login;
@@ -41,20 +45,25 @@ export const RoomScreen = memo(() => {
 
 			authState.setRoomUserId(roomId, response.userId);
 
-			roomState.setSelfUserId(response.userId);
 			roomState.setUsers(response.users);
+			roomState.setPlayers(response.players);
+			roomState.setSelfUserId(response.userId);
 			roomState.setOwnerId(response.ownerId);
+			roomState.setArtistId(response.artistId);
 			roomState.pushDrawEvents(response.drawEvents);
+			roomState.setState(response.state);
 
 			socket.on('users', listenUsers);
 			socket.on('ownerId', listenOwnerId);
 			socket.on('drawEvents', listenDrawEvents);
+			socket.on('stateTransaction', listenStateTransaction);
 		})();
 
 		return () => {
 			socket.removeListener('users', listenUsers);
 			socket.removeListener('ownerId', listenOwnerId);
 			socket.removeListener('drawEvents', listenDrawEvents);
+			socket.removeListener('stateTransaction', listenStateTransaction);
 
 			roomState.reset();
 

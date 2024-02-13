@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
 
 type AuthStoreState = {
 	login: string
@@ -13,11 +13,11 @@ type AuthStoreActions = {
 
 type AuthStore = AuthStoreState & AuthStoreActions;
 
-export const useAuthStore = create<AuthStore>()(persist((set, get) => ({
+export const useAuthStore = create<AuthStore>()(devtools(persist((set, get) => ({
 	login: '',
 	setLogin: (login) => set({ login }),
 	roomUserIdsMap: {},
 	setRoomUserId: (roomId, userId) => set({ roomUserIdsMap: { ...get().roomUserIdsMap }, [roomId]: userId })
-}), { name: 'authStore' }));
+}), { name: 'authStore' })));
 
 export const authStoreLoginSelector = (state: AuthStore) => state.login;
