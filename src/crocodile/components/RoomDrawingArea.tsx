@@ -11,6 +11,7 @@ import {
 } from '@crocodile/crocodile.store';
 import { throttle } from '@common/common.util';
 import { socket } from '@crocodile/crocodile.api';
+import { RoomDrawingAriaTools } from '@crocodile/components/RoomDrawingAriaTools';
 
 const WIDTH = 100;
 const HEIGHT = 141;
@@ -55,9 +56,7 @@ export const RoomDrawingArea = memo(() => {
 			<RoomDrawingAreaCanvas width={WIDTH} height={HEIGHT} className="h-full"
 				drawingEmitterRef={drawingEmitterRef} onDrawEvent={handleDrawEvent}
 				drawable={isArtist}/>
-			{/*<div>*/}
-			{/*	<button className="h-8 w-8 bg-amber-200">✐</button>*/}
-			{/*</div>*/}
+			<RoomDrawingAriaTools/>
 		</div>
 	</div>;
 });
