@@ -5,6 +5,17 @@ export type User = {
 	login: string;
 };
 
+export type Player = {
+	id: string;
+	login: string;
+};
+
+export type RoomState = 'idle' | 'round' | 'timeout';
+
+export type StateTransaction = { state: 'idle' } | { state: 'round', players: Player[], artistId: string } | {
+	state: 'timeout'
+};
+
 export type DrawEvent =
     { type: 'line', color: string, width: number, x1: number, y1: number, x2: number, y2: number }
     | { type: 'fill', color: string }
