@@ -20,7 +20,7 @@ module.exports = {
 	extends: [ 'eslint:recommended', 'plugin:@typescript-eslint/recommended' ],
 	rules: {
 		'@stylistic/indent': [ 'error', 'tab' ],
-		'@stylistic/linebreak-style': [ 'error', 'unix' ],
+		'@stylistic/linebreak-style': [ 'error', 'windows' ],
 		'@stylistic/quotes': [ 'error', 'single' ],
 		'@stylistic/semi': [ 'error', 'always' ],
 		'@stylistic/object-curly-spacing': [ 'error', 'always' ],
