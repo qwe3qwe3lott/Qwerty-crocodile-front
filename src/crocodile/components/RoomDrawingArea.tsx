@@ -51,12 +51,19 @@ export const RoomDrawingArea = memo(() => {
 		}
 	}, [ drawEvents, clearDrawEvents ]);
 
-	return <div className="grid justify-items-center">
-		<div className="grid grid-cols-[1fr_min-content] gap-4">
-			<RoomDrawingAreaCanvas width={WIDTH} height={HEIGHT} className="h-full"
-				drawingEmitterRef={drawingEmitterRef} onDrawEvent={handleDrawEvent}
-				drawable={isArtist}/>
-			<RoomDrawingAriaTools/>
+	return (
+		<div className="grid justify-items-center">
+			<div className="grid grid-cols-[1fr_min-content] gap-4">
+				<RoomDrawingAreaCanvas
+					width={WIDTH}
+					height={HEIGHT}
+					className="h-full"
+					drawingEmitterRef={drawingEmitterRef}
+					onDrawEvent={handleDrawEvent}
+					drawable={isArtist}
+				/>
+				<RoomDrawingAriaTools/>
+			</div>
 		</div>
-	</div>;
+	);
 });

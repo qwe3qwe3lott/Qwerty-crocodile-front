@@ -14,7 +14,13 @@ export const RoomOwnerPanel = memo(() => {
 
 	const isAbleToStart = state === 'idle' && users.length >= 2;
 
-	return <div className="p-4 rounded-xl bg-amber-200 grid gap-2 place-items-center">
-		<IconButton Icon={PlayButton} disabled={!isAbleToStart} onClick={handleStartClick}/>
-	</div>;
+	return (
+		<div className="p-2 rounded-xl bg-amber-200 grid gap-2 place-items-center">
+			<IconButton
+				Icon={PlayButton}
+				disabled={!isAbleToStart}
+				onClick={handleStartClick}
+			/>
+		</div>
+	);
 });

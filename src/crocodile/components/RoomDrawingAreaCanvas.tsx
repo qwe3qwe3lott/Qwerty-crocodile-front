@@ -167,6 +167,13 @@ export const RoomDrawingAreaCanvas = memo<Props>(({
 		};
 	}, [ width, onDrawEvent, drawable ]);
 
-	return <canvas style={{ imageRendering: 'pixelated' }} height={height} width={width} ref={canvasRef}
-		className={`cursor-crosshair ${className ?? ''}`}/>;
+	return (
+		<canvas
+			style={{ imageRendering: 'pixelated' }}
+			height={height}
+			width={width}
+			ref={canvasRef}
+			className={`cursor-crosshair ${className ?? ''}`}
+		/>
+	);
 });

@@ -16,7 +16,13 @@ export const LoginPage = memo<Props>(({ initialLogin, onSubmit }) => {
 		onSubmit(state.login);
 	}, [ onSubmit ]);
 
-	return <Content className={'grid place-items-center'}>
-		<LoginForm initialValues={initialFormValues} onSubmit={handleSubmit} className={'mb-32'}/>
-	</Content>;
+	return (
+		<Content className={'grid place-items-center'}>
+			<LoginForm
+				initialValues={initialFormValues}
+				onSubmit={handleSubmit}
+				className={'mb-32'}
+			/>
+		</Content>
+	);
 });

@@ -19,7 +19,9 @@ export const AppLayout = memo(() => {
 		});
 	}, []);
 
-	return <main className="p-4 bg-amber-50 h-full grid place-items-center">
-		{login ? isConnected ? <Outlet/> : null : <LoginScreen/>}
-	</main>;
+	return (
+		<main className="p-4 bg-amber-50 h-full grid place-items-center">
+			{login ? isConnected ? <Outlet/> : null : <LoginScreen/>}
+		</main>
+	);
 });
