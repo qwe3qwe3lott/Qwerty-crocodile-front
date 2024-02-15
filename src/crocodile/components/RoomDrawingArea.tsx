@@ -11,7 +11,7 @@ import {
 } from '@crocodile/crocodile.store';
 import { throttle } from '@common/common.util';
 import { socket } from '@crocodile/crocodile.api';
-import { RoomDrawingAriaTools } from '@crocodile/components/RoomDrawingAriaTools';
+import { RoomDrawingAreaTools } from '@crocodile/components/RoomDrawingAreaTools';
 
 const WIDTH = 100;
 const HEIGHT = 141;
@@ -62,7 +62,7 @@ export const RoomDrawingArea = memo(() => {
 					onDrawEvent={handleDrawEvent}
 					drawable={isArtist}
 				/>
-				<RoomDrawingAriaTools/>
+				<RoomDrawingAreaTools/>
 			</div>
 		</div>
 	);

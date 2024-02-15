@@ -1,6 +1,7 @@
 import { memo, RefObject, useEffect, useRef } from 'react';
 import { Emitter } from '@common/common.emitter';
 import { DrawEvent, DrawingEvent, DrawingEventPayloadMap } from '@crocodile/crocodile.entity';
+import { useDrawAreaStore } from '@crocodile/crocodile.store';
 
 type Props = {
 	width: number;
@@ -121,7 +122,7 @@ export const RoomDrawingAreaCanvas = memo<Props>(({
 
 			onDrawEvent({
 				type: 'line',
-				color: 'black',
+				color: useDrawAreaStore.getState().color,
 				width: 2,
 				x1: lastCoordinates.x,
 				y1: lastCoordinates.y,
@@ -141,7 +142,7 @@ export const RoomDrawingAreaCanvas = memo<Props>(({
 
 			onDrawEvent({
 				type: 'line',
-				color: 'black',
+				color: useDrawAreaStore.getState().color,
 				width: 2,
 				x1: lastCoordinates.x,
 				y1: lastCoordinates.y,

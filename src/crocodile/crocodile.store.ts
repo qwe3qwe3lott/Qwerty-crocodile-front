@@ -12,7 +12,7 @@ type RoomStoreState = {
 	state: RoomState
 };
 
-const generateInitialState = (): RoomStoreState => ({
+const generateRoomStoreInitialState = (): RoomStoreState => ({
 	users: [],
 	players: [],
 	selfUserId: '',
@@ -38,7 +38,7 @@ type RoomStoreActions = {
 type RoomStore = RoomStoreState & RoomStoreActions;
 
 export const useRoomStore = create<RoomStore>()(devtools((set, get) => ({
-	...generateInitialState(),
+	...generateRoomStoreInitialState(),
 	setUsers: (users) => set({ users }),
 	setPlayers: (players) => set({ players }),
 	setSelfUserId: (selfUserId) => set({ selfUserId }),
@@ -63,7 +63,7 @@ export const useRoomStore = create<RoomStore>()(devtools((set, get) => ({
 			}
 		}
 	},
-	reset: () => set(generateInitialState())
+	reset: () => set(generateRoomStoreInitialState())
 })));
 
 export const roomStoreUsersSelector = (state: RoomStore) => state.users;
@@ -74,3 +74,24 @@ export const roomStoreArtistIdSelector = (state: RoomStore) => state.artistId;
 export const roomStoreDrawEventsSelector = (state: RoomStore) => state.drawEvents;
 export const roomStoreStateSelector = (state: RoomStore) => state.state;
 export const roomStoreClearDrawEventsSelector = (state: RoomStore) => state.clearDrawEvents;
+
+type DrawAreaStoreState = {
+	color: string;
+};
+
+const generateDrawAreaStoreInitialState = ():DrawAreaStoreState => ({
+	color: 'black'
+});
+
+type DrawAreaStoreActions = {
+	setColor: (color: string) => void
+	reset: () => void
+};
+
+type DrawAreaStore = DrawAreaStoreState & DrawAreaStoreActions;
+
+export const useDrawAreaStore = create<DrawAreaStore>()((set) => ({
+	...generateDrawAreaStoreInitialState(),
+	setColor: (color) => set({ color }),
+	reset: () => set(generateDrawAreaStoreInitialState())
+}));
