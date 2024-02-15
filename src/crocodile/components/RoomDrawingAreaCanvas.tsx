@@ -9,7 +9,7 @@ type Props = {
 	className?: string;
 	drawingEmitterRef: RefObject<Emitter<DrawingEvent, DrawingEventPayloadMap>>
 	onDrawEvent: (event: DrawEvent) => void;
-	drawable: boolean;
+	isAbleToDraw: boolean;
 };
 
 export const RoomDrawingAreaCanvas = memo<Props>(({
@@ -18,7 +18,7 @@ export const RoomDrawingAreaCanvas = memo<Props>(({
 	className,
 	drawingEmitterRef,
 	onDrawEvent,
-	drawable
+	isAbleToDraw
 }) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -96,7 +96,7 @@ export const RoomDrawingAreaCanvas = memo<Props>(({
 	}, [ width, height ]);
 
 	useEffect(() => {
-		if (!canvasRef.current || !drawable) return;
+		if (!canvasRef.current || !isAbleToDraw) return;
 
 		let lastCoordinates: { x: number, y: number } | null = null;
 
@@ -166,7 +166,7 @@ export const RoomDrawingAreaCanvas = memo<Props>(({
 			canvasRef.current.removeEventListener('mouseleave', finishDrawingListener);
 			canvasRef.current.removeEventListener('mousemove', drawingListener);
 		};
-	}, [ width, onDrawEvent, drawable ]);
+	}, [ width, onDrawEvent, isAbleToDraw ]);
 
 	return (
 		<canvas

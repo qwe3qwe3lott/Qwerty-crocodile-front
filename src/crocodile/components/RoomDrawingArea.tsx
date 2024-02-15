@@ -7,6 +7,7 @@ import {
 	roomStoreClearDrawEventsSelector,
 	roomStoreDrawEventsSelector,
 	roomStoreSelfUserIdSelector,
+	roomStoreStateSelector,
 	useRoomStore
 } from '@crocodile/crocodile.store';
 import { throttle } from '@common/common.util';
@@ -23,9 +24,13 @@ export const RoomDrawingArea = memo(() => {
 	const drawEvents = useRoomStore(roomStoreDrawEventsSelector);
 	const clearDrawEvents = useRoomStore(roomStoreClearDrawEventsSelector);
 	const selfUserId = useRoomStore(roomStoreSelfUserIdSelector);
+	const state = useRoomStore(roomStoreStateSelector);
 	const artistId = useRoomStore(roomStoreArtistIdSelector);
 
 	const isArtist = selfUserId === artistId;
+	const isRound = state === 'round';
+
+	const isAbleToDraw = isArtist && isRound;
 
 	const sendDrawEvents = useCallback(throttle(async () => {
 		if (!drawEventsToSend.current) return;
@@ -53,16 +58,16 @@ export const RoomDrawingArea = memo(() => {
 
 	return (
 		<div className="grid justify-items-center">
-			<div className="grid grid-cols-[1fr_min-content] gap-4">
+			<div className="flex gap-4">
 				<RoomDrawingAreaCanvas
 					width={WIDTH}
 					height={HEIGHT}
 					className="h-full"
 					drawingEmitterRef={drawingEmitterRef}
 					onDrawEvent={handleDrawEvent}
-					drawable={isArtist}
+					isAbleToDraw={isAbleToDraw}
 				/>
-				<RoomDrawingAreaTools/>
+				{isAbleToDraw && <RoomDrawingAreaTools/>}
 			</div>
 		</div>
 	);
