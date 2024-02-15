@@ -1,5 +1,6 @@
 import { io, Socket } from 'socket.io-client';
 import { DrawEvent, Player, RoomState, StateTransaction, User } from '@crocodile/crocodile.entity';
+import { ENV_CONFIG } from '@common/common.consts';
 
 type ResponseData<TSuccess extends Record<string, unknown> = Record<string, unknown>, TError extends Record<string, unknown> = Record<string, unknown>> =
 	({ _status: 'OK' } & TSuccess)
@@ -31,4 +32,4 @@ type ClientToServerEvents = {
 
 type ClientSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
 
-export const socket: ClientSocket = io('ws://localhost:3001/crocodile');
+export const socket: ClientSocket = io(ENV_CONFIG.PUBLIC_BACKEND_API_URL);

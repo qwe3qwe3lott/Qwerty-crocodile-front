@@ -6,3 +6,11 @@ declare module '*.svg' {
 	const content: string;
 	export default content;
 }
+
+declare global {
+	const process: {
+		env: {
+			PUBLIC_BACKEND_API_URL: string
+		}
+	};
+}
