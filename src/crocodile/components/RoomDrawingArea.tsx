@@ -29,8 +29,9 @@ export const RoomDrawingArea = memo(() => {
 
 	const isArtist = selfUserId === artistId;
 	const isRound = state === 'round';
+	const isIdle = state === 'idle';
 
-	const isAbleToDraw = isArtist && isRound;
+	const isAbleToDraw = (isArtist && isRound) || isIdle;
 
 	const sendDrawEvents = useCallback(throttle(async () => {
 		if (!drawEventsToSend.current) return;
@@ -44,9 +45,10 @@ export const RoomDrawingArea = memo(() => {
 
 	const handleDrawEvent = useCallback((event: DrawEvent) => {
 		drawingEmitterRef.current?.emit('draw', event);
+		if (isIdle) return;
 		drawEventsToSend.current?.push(event);
 		sendDrawEvents();
-	}, [ sendDrawEvents ]);
+	}, [ sendDrawEvents, isIdle ]);
 
 	useEffect(() => {
 		if (drawEvents.length) clearDrawEvents();
