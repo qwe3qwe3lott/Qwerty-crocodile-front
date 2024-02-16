@@ -52,6 +52,7 @@ export const RoomScreen = memo(() => {
 			roomState.setArtistId(response.artistId);
 			roomState.pushDrawEvents(response.drawEvents);
 			roomState.setState(response.state);
+			roomState.setTimerState(response.timerState);
 
 			socket.on('users', listenUsers);
 			socket.on('ownerId', listenOwnerId);

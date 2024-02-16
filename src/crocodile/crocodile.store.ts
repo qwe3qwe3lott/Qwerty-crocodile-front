@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { DrawEvent, Player, RoomState, StateTransaction, User } from '@crocodile/crocodile.entity';
+import { DrawEvent, Player, RoomState, StateTransaction, TimerState, User } from '@crocodile/crocodile.entity';
 import { devtools } from 'zustand/middleware';
 
 type RoomStoreState = {
@@ -9,7 +9,8 @@ type RoomStoreState = {
 	ownerId: string;
 	artistId: string;
 	drawEvents: DrawEvent[]
-	state: RoomState
+	state: RoomState,
+	timerState: TimerState | null
 };
 
 const generateRoomStoreInitialState = (): RoomStoreState => ({
@@ -19,7 +20,8 @@ const generateRoomStoreInitialState = (): RoomStoreState => ({
 	ownerId: '',
 	artistId: '',
 	drawEvents: [ { type: 'fill', color: 'white' } ],
-	state: 'idle'
+	state: 'idle',
+	timerState: null
 });
 
 type RoomStoreActions = {
@@ -31,6 +33,7 @@ type RoomStoreActions = {
 	pushDrawEvents: (drawEvents: DrawEvent[]) => void;
 	clearDrawEvents: () => void;
 	setState: (state: RoomState) => void;
+	setTimerState: (timerState: TimerState | null) => void;
 	applyStateTransaction: (transaction: StateTransaction) => void;
 	reset: () => void;
 };
@@ -47,18 +50,24 @@ export const useRoomStore = create<RoomStore>()(devtools((set, get) => ({
 	pushDrawEvents: (drawEvents) => set({ drawEvents: [ ...get().drawEvents, ...drawEvents ] }),
 	clearDrawEvents: () => set({ drawEvents: [] }),
 	setState: (state) => set({ state }),
+	setTimerState: (timerState) => set({ timerState }),
 	applyStateTransaction: (transaction) => {
 		switch (transaction.state) {
 			case 'idle': {
-				set({ state: transaction.state, players: [], artistId: '' });
+				set({ state: transaction.state, players: [], artistId: '', timerState: null });
 				break;
 			}
 			case 'round': {
-				set({ state: transaction.state, players: transaction.players, artistId: transaction.artistId });
+				set({
+					state: transaction.state,
+					players: transaction.players,
+					artistId: transaction.artistId,
+					timerState: transaction.timerState
+				});
 				break;
 			}
 			case 'timeout': {
-				set({ state: transaction.state });
+				set({ state: transaction.state, timerState: transaction.timerState });
 				break;
 			}
 		}
@@ -74,12 +83,13 @@ export const roomStoreArtistIdSelector = (state: RoomStore) => state.artistId;
 export const roomStoreDrawEventsSelector = (state: RoomStore) => state.drawEvents;
 export const roomStoreStateSelector = (state: RoomStore) => state.state;
 export const roomStoreClearDrawEventsSelector = (state: RoomStore) => state.clearDrawEvents;
+export const roomStoreTimerStateSelector = (state: RoomStore) => state.timerState;
 
 type DrawAreaStoreState = {
 	color: string;
 };
 
-const generateDrawAreaStoreInitialState = ():DrawAreaStoreState => ({
+const generateDrawAreaStoreInitialState = (): DrawAreaStoreState => ({
 	color: 'black'
 });
 
