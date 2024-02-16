@@ -12,3 +12,7 @@ export const throttle = <Arg extends unknown[], F extends (...arg: Arg) => unkno
 		}, duration);
 	};
 };
+
+export const delay = (ms: number) => {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+};
