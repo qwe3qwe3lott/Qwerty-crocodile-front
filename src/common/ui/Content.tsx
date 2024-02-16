@@ -6,7 +6,9 @@ type Props = PropsWithChildren<{
 
 export const Content = memo<Props>(({ children, className = '' }) => {
 	return (
-		<section className={`bg-indigo-500 shadow-md shadow-gray-400 rounded-3xl w-full h-full max-h-256 max-w-512 p-8 ${className}`}>
+		<section
+			className={`bg-indigo-500 shadow-md shadow-gray-400 rounded-3xl w-full h-full min-h-128 max-h-256 max-w-512 p-8 ${className}`}
+		>
 			{children}
 		</section>
 	);
