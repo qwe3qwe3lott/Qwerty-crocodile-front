@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Content } from '@common/ui/Content';
 import { RoomDrawingArea } from '@crocodile/components/RoomDrawingArea';
-import { RoomControlsArea } from '@crocodile/components/RoomControlsArea';
+import { RoomControls } from '@crocodile/components/RoomControls';
 import { roomStoreOwnerIdSelector, roomStoreSelfUserIdSelector, useRoomStore } from '@crocodile/crocodile.store';
 import { RoomOwnerPanel } from '@crocodile/components/RoomOwnerPanel';
 import { RoomSidebar } from '@crocodile/components/RoomSidebar';
@@ -21,7 +21,7 @@ export const RoomPage = memo(() => {
 				{isOwner && <RoomOwnerPanel/>}
 			</div>
 			<RoomDrawingArea/>
-			<RoomControlsArea/>
+			<RoomControls/>
 		</Content>
 	);
 });

@@ -64,7 +64,7 @@ export const RoomDrawingArea = memo(() => {
 				<RoomDrawingAreaCanvas
 					width={WIDTH}
 					height={HEIGHT}
-					className="h-full"
+					className="h-full rounded-xl"
 					drawingEmitterRef={drawingEmitterRef}
 					onDrawEvent={handleDrawEvent}
 					isAbleToDraw={isAbleToDraw}
