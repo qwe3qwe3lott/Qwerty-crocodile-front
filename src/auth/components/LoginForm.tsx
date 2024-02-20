@@ -12,7 +12,7 @@ type Props = {
 
 export const LoginForm = memo<Props>(({ className, onSubmit, initialValues }) => {
 	const { control, handleSubmit } = useForm<LoginFormState>({
-		defaultValues: initialValues
+		defaultValues: initialValues,
 	});
 
 	return (
@@ -32,7 +32,7 @@ export const LoginForm = memo<Props>(({ className, onSubmit, initialValues }) =>
 					);
 				}}
 			/>
-			<Button>Вперёд!</Button>
+			<Button>{'Вперёд!'}</Button>
 		</form>
 	);
 });

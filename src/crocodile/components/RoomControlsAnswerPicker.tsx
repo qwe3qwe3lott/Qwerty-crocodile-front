@@ -10,7 +10,7 @@ export const RoomControlsAnswerPicker = memo<Props>(({ disabled }) => {
 	const answerAdapter = useRoomStore(roomStoreAnswerAdapterSelector);
 
 	return (
-		<div className="flex justify-center">
+		<div className={'flex justify-center'}>
 			<SelectSearch
 				disabled={disabled}
 				search

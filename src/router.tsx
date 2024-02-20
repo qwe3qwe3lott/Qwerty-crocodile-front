@@ -12,7 +12,7 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				path: '',
-				Component: RoomCreatingScreen
+				Component: RoomCreatingScreen,
 			},
 			{
 				path: 'login',
@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
 			{
 				path: ':roomId',
 				Component: RoomScreen,
-			}
-		]
-	}
+			},
+		],
+	},
 ]);

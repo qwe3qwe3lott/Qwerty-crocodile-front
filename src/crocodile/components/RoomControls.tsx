@@ -4,7 +4,7 @@ import {
 	roomStoreArtistIdSelector,
 	roomStoreSelfUserIdSelector,
 	roomStoreStateSelector,
-	useRoomStore
+	useRoomStore,
 } from '@crocodile/crocodile.store';
 import { RoomControlsAnswerPicker } from '@crocodile/components/RoomControlsAnswerPicker';
 
@@ -21,7 +21,7 @@ export const RoomControls = memo(() => {
 	const isAnswerPickerShowed = isRound && !isArtist;
 
 	return (
-		<div className="max-w-128 min-w-96 w-full h-full p-4 rounded-xl bg-amber-200">
+		<div className={'max-w-128 min-w-96 w-full h-full p-4 rounded-xl bg-amber-200'}>
 			{isPreviewShowed && <RoomControlsPreview/>}
 			{isAnswerPickerShowed && <RoomControlsAnswerPicker/>}
 		</div>

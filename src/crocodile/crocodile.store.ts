@@ -6,7 +6,7 @@ import {
 	RoomState,
 	StateTransaction,
 	TimerState,
-	User
+	User,
 } from '@crocodile/crocodile.entity';
 import { devtools } from 'zustand/middleware';
 import { ShikimoriAnswerAdapter } from '@crocodile/adapters/ShikimoriAnswerAdapter';
@@ -32,7 +32,7 @@ const generateRoomStoreInitialState = (): RoomStoreState => ({
 	drawEvents: [ { type: 'fill', color: 'white' } ],
 	state: 'idle',
 	timerState: null,
-	answerAdapter: new ShikimoriAnswerAdapter()
+	answerAdapter: new ShikimoriAnswerAdapter(),
 });
 
 type RoomStoreActions = {
@@ -73,7 +73,7 @@ export const useRoomStore = create<RoomStore>()(devtools((set, get) => ({
 					state: transaction.state,
 					players: transaction.players,
 					artistId: transaction.artistId,
-					timerState: transaction.timerState
+					timerState: transaction.timerState,
 				});
 				break;
 			}
@@ -83,7 +83,7 @@ export const useRoomStore = create<RoomStore>()(devtools((set, get) => ({
 			}
 		}
 	},
-	reset: () => set(generateRoomStoreInitialState())
+	reset: () => set(generateRoomStoreInitialState()),
 })));
 
 export const roomStoreUsersSelector = (state: RoomStore) => state.users;
@@ -102,7 +102,7 @@ type DrawAreaStoreState = {
 };
 
 const generateDrawAreaStoreInitialState = (): DrawAreaStoreState => ({
-	color: 'black'
+	color: 'black',
 });
 
 type DrawAreaStoreActions = {
@@ -115,5 +115,5 @@ type DrawAreaStore = DrawAreaStoreState & DrawAreaStoreActions;
 export const useDrawAreaStore = create<DrawAreaStore>()((set) => ({
 	...generateDrawAreaStoreInitialState(),
 	setColor: (color) => set({ color }),
-	reset: () => set(generateDrawAreaStoreInitialState())
+	reset: () => set(generateDrawAreaStoreInitialState()),
 }));

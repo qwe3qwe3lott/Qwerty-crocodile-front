@@ -13,9 +13,9 @@ export const RoomPage = memo(() => {
 	const isOwner = selfUserId === ownerId;
 
 	return (
-		<Content className="flex gap-8 justify-between">
+		<Content className={'flex gap-8 justify-between'}>
 			<div
-				className="min-w-48 max-w-72 w-full h-full flex gap-4 flex-col"
+				className={'min-w-48 max-w-72 w-full h-full flex gap-4 flex-col'}
 			>
 				<RoomSidebar/>
 				{isOwner && <RoomOwnerPanel/>}

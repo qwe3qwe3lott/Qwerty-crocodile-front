@@ -8,7 +8,7 @@ export const RoomSidebar = memo(() => {
 	const state = useRoomStore(roomStoreStateSelector);
 
 	return (
-		<div className="p-4 rounded-xl bg-amber-200 h-full flex flex-col gap-4 w-full">
+		<div className={'p-4 rounded-xl bg-amber-200 h-full flex flex-col gap-4 w-full'}>
 			{!!timerState && (
 				<RoomSidebarTimer
 					key={state}

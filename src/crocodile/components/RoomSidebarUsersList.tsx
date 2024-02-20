@@ -5,7 +5,7 @@ import {
 	roomStorePlayersSelector,
 	roomStoreStateSelector,
 	roomStoreUsersSelector,
-	useRoomStore
+	useRoomStore,
 } from '@crocodile/crocodile.store';
 import { ProfileIcon } from '@common/ui/ProfileIcon';
 
@@ -61,7 +61,7 @@ export const RoomSidebarUsersList = memo(() => {
 	}, [ users, players, ownerId, artistId, state ]);
 
 	return (
-		<ul className="flex flex-col gap-2 w-full">
+		<ul className={'flex flex-col gap-2 w-full'}>
 			{userViews.map((userView) => {
 				return (
 					<li
@@ -69,11 +69,11 @@ export const RoomSidebarUsersList = memo(() => {
 						className={`bg-white flex rounded-full py-2 px-4 w-full h-12 gap-2 items-center ${userView.isDisconnected ? 'opacity-50' : ''}`}
 					>
 						<ProfileIcon
-							className="min-h-12 min-w-12 max-h-12 max-w-12 -mt-2 -mb-2 -ml-4 p-1 rounded-full border-amber-700 border-2 border-solid"
+							className={'min-h-12 min-w-12 max-h-12 max-w-12 -mt-2 -mb-2 -ml-4 p-1 rounded-full border-amber-700 border-2 border-solid'}
 						/>
-						<span className="text-2xl truncate">{userView.login}</span>
-						{userView.isOwner && <span className="place-self-center">👑</span>}
-						{userView.isArtist && state === 'round' && <span className="place-self-center">✎</span>}
+						<span className={'text-2xl truncate'}>{userView.login}</span>
+						{userView.isOwner && <span className={'place-self-center'}>{'👑'}</span>}
+						{userView.isArtist && state === 'round' && <span className={'place-self-center'}>{'✎'}</span>}
 					</li>
 				);
 			})}

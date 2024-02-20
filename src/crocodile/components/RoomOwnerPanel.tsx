@@ -22,7 +22,7 @@ export const RoomOwnerPanel = memo(() => {
 	const isAbleToStop = state !== 'idle';
 
 	return (
-		<div className="p-2 rounded-xl bg-amber-200 flex justify-center gap-2">
+		<div className={'p-2 rounded-xl bg-amber-200 flex justify-center gap-2'}>
 			<IconButton
 				Icon={PlayButton}
 				disabled={!isAbleToStart}

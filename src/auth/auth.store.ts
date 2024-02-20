@@ -17,7 +17,7 @@ export const useAuthStore = create<AuthStore>()(devtools(persist((set, get) => (
 	login: '',
 	setLogin: (login) => set({ login }),
 	roomUserIdsMap: {},
-	setRoomUserId: (roomId, userId) => set({ roomUserIdsMap: { ...get().roomUserIdsMap, [roomId]: userId } })
+	setRoomUserId: (roomId, userId) => set({ roomUserIdsMap: { ...get().roomUserIdsMap, [roomId]: userId } }),
 }), { name: 'authStore' })));
 
 export const authStoreLoginSelector = (state: AuthStore) => state.login;

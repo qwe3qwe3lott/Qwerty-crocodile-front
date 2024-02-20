@@ -18,7 +18,7 @@ export const RoomDrawingAreaCanvas = memo<Props>(({
 	className,
 	drawingEmitterRef,
 	onDrawEvent,
-	isAbleToDraw
+	isAbleToDraw,
 }) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -127,7 +127,7 @@ export const RoomDrawingAreaCanvas = memo<Props>(({
 				x1: lastCoordinates.x,
 				y1: lastCoordinates.y,
 				x2: lastCoordinates.x,
-				y2: lastCoordinates.y
+				y2: lastCoordinates.y,
 			});
 
 			lastCoordinates = null;
@@ -147,7 +147,7 @@ export const RoomDrawingAreaCanvas = memo<Props>(({
 				x1: lastCoordinates.x,
 				y1: lastCoordinates.y,
 				x2: coordinates.x,
-				y2: coordinates.y
+				y2: coordinates.y,
 			});
 
 			lastCoordinates = coordinates;

@@ -35,10 +35,10 @@ const Timer = memo<Props>(({ timerState }) => {
 	}, []);
 
 	return (
-		<div className="bg-white h-6 w-full rounded-full overflow-hidden">
+		<div className={'bg-white h-6 w-full rounded-full overflow-hidden'}>
 			<div
 				ref={progressRef}
-				className="bg-green-600 h-full"
+				className={'bg-green-600 h-full'}
 			/>
 		</div>
 	);

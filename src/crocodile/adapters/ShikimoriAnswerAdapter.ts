@@ -31,12 +31,12 @@ export class ShikimoriAnswerAdapter implements AnswerAdapter {
 			}>(answerOptionsQuery, {
 				search: text,
 				limit: 10,
-				order: 'popularity'
+				order: 'popularity',
 			}).toPromise();
 
 			return result.data?.animes.map((anime) => ({
 				name: [ anime.name, anime.russian ].filter(Boolean).join(' | '),
-				value: anime.id
+				value: anime.id,
 			})) ?? [];
 		} catch (e) {
 			console.error(e);

@@ -5,12 +5,12 @@ const title = 'Bakemonogatari / Истории монстров';
 
 export const RoomControlsPreview = memo(() => {
 	return (
-		<div className="flex flex-col gap-4 items-stretch">
-			<p className="text-2xl text-center">{title}</p>
+		<div className={'flex flex-col gap-4 items-stretch'}>
+			<p className={'text-2xl text-center'}>{title}</p>
 			<img
 				alt={title}
 				src={posterUrl}
-				className="rounded-xl"
+				className={'rounded-xl'}
 			/>
 		</div>
 	);

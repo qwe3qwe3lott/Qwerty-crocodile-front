@@ -8,7 +8,7 @@ import {
 	roomStoreDrawEventsSelector,
 	roomStoreSelfUserIdSelector,
 	roomStoreStateSelector,
-	useRoomStore
+	useRoomStore,
 } from '@crocodile/crocodile.store';
 import { throttle } from '@common/common.util';
 import { socket } from '@crocodile/crocodile.api';
@@ -59,12 +59,12 @@ export const RoomDrawingArea = memo(() => {
 	}, [ drawEvents, clearDrawEvents ]);
 
 	return (
-		<div className="grid justify-items-center">
-			<div className="flex gap-4">
+		<div className={'grid justify-items-center'}>
+			<div className={'flex gap-4'}>
 				<RoomDrawingAreaCanvas
 					width={WIDTH}
 					height={HEIGHT}
-					className="h-full rounded-xl"
+					className={'h-full rounded-xl'}
 					drawingEmitterRef={drawingEmitterRef}
 					onDrawEvent={handleDrawEvent}
 					isAbleToDraw={isAbleToDraw}
