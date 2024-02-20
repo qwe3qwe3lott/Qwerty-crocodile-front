@@ -1,4 +1,4 @@
-export const throttle = <Arg extends unknown[], F extends (...arg: Arg) => unknown>(cb: F, duration: number) => {
+export const throttle = <Arg extends unknown[] = unknown[], F extends (...arg: Arg) => unknown = (...arg: Arg) => unknown>(cb: F, duration: number) => {
 	let shouldWait = false;
 
 	return (...args: Arg) => {
