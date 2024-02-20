@@ -33,3 +33,12 @@ export type TimerState = {
 	startTime: number;
 	duration: number;
 };
+
+export type AnswerAdapterOption = {
+	name: string;
+	value: string;
+};
+
+export interface AnswerAdapter {
+	fetchOptions(text: string): Promise<AnswerAdapterOption[]>;
+}

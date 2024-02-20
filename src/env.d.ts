@@ -10,7 +10,8 @@ declare module '*.svg' {
 declare global {
 	const process: {
 		env: {
-			PUBLIC_BACKEND_API_URL: string
+			PUBLIC_BACKEND_API_URL: string;
+			PUBLIC_SHIKIMORI_GQL_BACKEND_API_URL: string;
 		}
 	};
 }

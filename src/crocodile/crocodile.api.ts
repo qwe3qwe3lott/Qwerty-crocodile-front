@@ -33,4 +33,4 @@ type ClientToServerEvents = {
 
 type ClientSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
 
-export const socket: ClientSocket = io(ENV_CONFIG.PUBLIC_BACKEND_API_URL);
+export const socket: ClientSocket = io(ENV_CONFIG.BACKEND_API_URL);

@@ -1,6 +1,15 @@
 import { create } from 'zustand';
-import { DrawEvent, Player, RoomState, StateTransaction, TimerState, User } from '@crocodile/crocodile.entity';
+import {
+	AnswerAdapter,
+	DrawEvent,
+	Player,
+	RoomState,
+	StateTransaction,
+	TimerState,
+	User
+} from '@crocodile/crocodile.entity';
 import { devtools } from 'zustand/middleware';
+import { ShikimoriAnswerAdapter } from '@crocodile/adapters/ShikimoriAnswerAdapter';
 
 type RoomStoreState = {
 	users: User[];
@@ -8,9 +17,10 @@ type RoomStoreState = {
 	selfUserId: string;
 	ownerId: string;
 	artistId: string;
-	drawEvents: DrawEvent[]
-	state: RoomState,
-	timerState: TimerState | null
+	drawEvents: DrawEvent[];
+	state: RoomState;
+	timerState: TimerState | null;
+	answerAdapter: AnswerAdapter;
 };
 
 const generateRoomStoreInitialState = (): RoomStoreState => ({
@@ -21,7 +31,8 @@ const generateRoomStoreInitialState = (): RoomStoreState => ({
 	artistId: '',
 	drawEvents: [ { type: 'fill', color: 'white' } ],
 	state: 'idle',
-	timerState: null
+	timerState: null,
+	answerAdapter: new ShikimoriAnswerAdapter()
 });
 
 type RoomStoreActions = {
@@ -84,6 +95,7 @@ export const roomStoreDrawEventsSelector = (state: RoomStore) => state.drawEvent
 export const roomStoreStateSelector = (state: RoomStore) => state.state;
 export const roomStoreClearDrawEventsSelector = (state: RoomStore) => state.clearDrawEvents;
 export const roomStoreTimerStateSelector = (state: RoomStore) => state.timerState;
+export const roomStoreAnswerAdapterSelector = (state: RoomStore) => state.answerAdapter;
 
 type DrawAreaStoreState = {
 	color: string;
