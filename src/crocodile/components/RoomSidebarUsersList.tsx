@@ -15,6 +15,7 @@ type UserView = {
 	isDisconnected?: true;
 	isOwner?: true;
 	isArtist?: true;
+	hasRightAnswer?: true;
 };
 
 export const RoomSidebarUsersList = memo(() => {
@@ -43,6 +44,7 @@ export const RoomSidebarUsersList = memo(() => {
 					const userView: UserView = { id: player.id, login: player.login };
 					if (player.id === ownerId) userView.isOwner = true;
 					if (player.id === artistId) userView.isArtist = true;
+					if (player.hasRightAnswer) userView.hasRightAnswer = true;
 					if (!user) userView.isDisconnected = true;
 					userViews.push(userView);
 				}
@@ -71,9 +73,10 @@ export const RoomSidebarUsersList = memo(() => {
 						<ProfileIcon
 							className={'min-h-12 min-w-12 max-h-12 max-w-12 -mt-2 -mb-2 -ml-4 p-1 rounded-full border-amber-700 border-2 border-solid'}
 						/>
-						<span className={'text-2xl truncate'}>{userView.login}</span>
+						<span className={'text-2xl truncate flex-grow'}>{userView.login}</span>
 						{userView.isOwner && <span className={'place-self-center'}>{'👑'}</span>}
-						{userView.isArtist && state === 'round' && <span className={'place-self-center'}>{'✎'}</span>}
+						{userView.isArtist && <span className={'place-self-center'}>{'✎'}</span>}
+						{userView.hasRightAnswer && <span className={'place-self-center'}>{'✅'}</span>}
 					</li>
 				);
 			})}

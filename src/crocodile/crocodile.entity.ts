@@ -8,6 +8,7 @@ export type User = {
 export type Player = {
 	id: string;
 	login: string;
+	hasRightAnswer?: true;
 };
 
 export type RoomState = 'idle' | 'round' | 'timeout';
@@ -35,7 +36,7 @@ export type TimerState = {
 };
 
 export type AnswerAdapterOption = {
-	name: string;
+	label: string;
 	value: string;
 };
 

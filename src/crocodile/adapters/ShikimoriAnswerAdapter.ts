@@ -18,6 +18,16 @@ const client = new Client({
 });
 
 export class ShikimoriAnswerAdapter implements AnswerAdapter {
+	private static instance: ShikimoriAnswerAdapter;
+
+	constructor() {
+		if (!ShikimoriAnswerAdapter.instance) {
+			ShikimoriAnswerAdapter.instance = this;
+		}
+
+		return ShikimoriAnswerAdapter.instance;
+	}
+
 	public async fetchOptions(text: string): Promise<AnswerAdapterOption[]> {
 		if (!text) return [];
 
@@ -35,7 +45,7 @@ export class ShikimoriAnswerAdapter implements AnswerAdapter {
 			}).toPromise();
 
 			return result.data?.animes.map((anime) => ({
-				name: [ anime.name, anime.russian ].filter(Boolean).join(' | '),
+				label: [ anime.name, anime.russian ].filter(Boolean).join(' | '),
 				value: anime.id,
 			})) ?? [];
 		} catch (e) {

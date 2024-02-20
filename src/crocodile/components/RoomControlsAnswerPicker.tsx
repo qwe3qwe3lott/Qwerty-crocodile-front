@@ -3,6 +3,7 @@ import { roomStoreAnswerAdapterSelector, useRoomStore } from '@crocodile/crocodi
 import Select from 'react-select/base';
 import { throttle } from '@common/common.util';
 import { OptionsOrGroups } from 'react-select';
+import { socket } from '@crocodile/crocodile.api';
 
 type Props = {
 	disabled?: boolean
@@ -15,14 +16,14 @@ export const RoomControlsAnswerPicker = memo<Props>(({ disabled }) => {
 
 	const inputValueRef = useRef('');
 	const [ inputValue, setInputValue ] = useState('');
-	const [ value, setValue ] = useState<Option | null>(null);
+	const [ option, setOption ] = useState<Option | null>(null);
 	const [ isMenuOpen, setMenuOpenFlag ] = useState(false);
 	const [ options, setOptions ] = useState<OptionsOrGroups<Option, never>>([]);
 
 	const fetchOptions = useCallback(throttle(async () => {
 		const options = await answerAdapter.fetchOptions(inputValueRef.current);
 
-		setOptions(options.map((option) => ({ label: option.name, value: option.value })));
+		setOptions(options);
 	}, 500), []);
 
 	const handleInputValueChange = useCallback((value: string) => {
@@ -31,8 +32,9 @@ export const RoomControlsAnswerPicker = memo<Props>(({ disabled }) => {
 		fetchOptions();
 	}, [ fetchOptions ]);
 
-	const handleValueChange = useCallback((value: Option | null) => {
-		setValue(value);
+	const handleOptionChange = useCallback((option: Option | null) => {
+		setOption(option);
+		!!option?.value && socket.emitWithAck('answer', option.value);
 	}, []);
 
 	return (
@@ -41,14 +43,14 @@ export const RoomControlsAnswerPicker = memo<Props>(({ disabled }) => {
 				placeholder={'Введите название по постеру'}
 				className={'w-full'}
 				isDisabled={disabled}
-				onChange={handleValueChange}
+				onChange={handleOptionChange}
 				onInputChange={handleInputValueChange}
 				options={options}
 				inputValue={inputValue}
 				onMenuClose={() => setMenuOpenFlag(false)}
 				onMenuOpen={() => setMenuOpenFlag(true)}
 				menuIsOpen={isMenuOpen}
-				value={value}
+				value={option}
 			/>
 		</div>
 	);

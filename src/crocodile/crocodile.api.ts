@@ -11,6 +11,7 @@ type ServerToClientEvents = {
 	ownerId: (ownerId: string) => void;
 	drawEvents: (drawEvents: DrawEvent[]) => void;
 	stateTransaction: (transaction: StateTransaction) => void;
+	players: (players: Player[]) => void;
 };
 
 type ClientToServerEvents = {
@@ -29,6 +30,7 @@ type ClientToServerEvents = {
 	draw: (payload: DrawEvent[], cb: (response: ResponseData) => void) => void;
 	start: (payload: null, cb: (response: ResponseData) => void) => void;
 	stop: (payload: null, cb: (response: ResponseData) => void) => void;
+	answer: (payload: string, cb: (response: ResponseData) => void) => void;
 };
 
 type ClientSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
