@@ -15,8 +15,8 @@ export type RoomState = 'idle' | 'round' | 'timeout';
 
 export type StateTransaction =
 	{ state: 'idle' } |
-	{ state: 'round', timerState: TimerState | null, players: Player[], artistId: string } |
-	{ state: 'timeout', timerState: TimerState | null };
+	{ state: 'round', timerState: TimerState | null, players: Player[], artistId: string, answer: Answer | null } |
+	{ state: 'timeout', timerState: TimerState | null, answer: Answer | null };
 
 export type DrawEvent =
 	{ type: 'line', color: string, width: number, x1: number, y1: number, x2: number, y2: number }
@@ -43,3 +43,9 @@ export type AnswerAdapterOption = {
 export interface AnswerAdapter {
 	fetchOptions(text: string): Promise<AnswerAdapterOption[]>;
 }
+
+export type Answer = {
+	label: string;
+	posterUrl: string;
+	value: string;
+};

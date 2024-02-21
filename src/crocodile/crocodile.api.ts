@@ -1,5 +1,5 @@
 import { io, Socket } from 'socket.io-client';
-import { DrawEvent, Player, RoomState, StateTransaction, TimerState, User } from '@crocodile/crocodile.entity';
+import { Answer, DrawEvent, Player, RoomState, StateTransaction, TimerState, User } from '@crocodile/crocodile.entity';
 import { ENV_CONFIG } from '@common/common.consts';
 
 type ResponseData<TSuccess extends Record<string, unknown> = Record<string, unknown>, TError extends Record<string, unknown> = Record<string, unknown>> =
@@ -24,7 +24,8 @@ type ClientToServerEvents = {
 		artistId: string,
 		state: RoomState,
 		players: Player[],
-		timerState: TimerState | null
+		timerState: TimerState | null,
+		answer: Answer | null,
 	}>) => void) => void;
 	leaveRoom: (payload: null, cb: (response: ResponseData) => void) => void;
 	draw: (payload: DrawEvent[], cb: (response: ResponseData) => void) => void;

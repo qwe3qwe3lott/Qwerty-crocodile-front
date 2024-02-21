@@ -1,18 +1,25 @@
-import { memo, useCallback, useRef, useState } from 'react';
-import { roomStoreAnswerAdapterSelector, useRoomStore } from '@crocodile/crocodile.store';
+import { memo, useCallback, useMemo, useRef, useState } from 'react';
+import {
+	roomStoreAnswerAdapterSelector,
+	roomStorePlayersSelector,
+	roomStoreSelfUserIdSelector,
+	useRoomStore,
+} from '@crocodile/crocodile.store';
 import Select from 'react-select/base';
 import { throttle } from '@common/common.util';
 import { OptionsOrGroups } from 'react-select';
 import { socket } from '@crocodile/crocodile.api';
 
-type Props = {
-	disabled?: boolean
-};
-
 type Option = { label: string, value: string };
 
-export const RoomControlsAnswerPicker = memo<Props>(({ disabled }) => {
+export const RoomControlsAnswerPicker = memo(() => {
 	const answerAdapter = useRoomStore(roomStoreAnswerAdapterSelector);
+	const players = useRoomStore(roomStorePlayersSelector);
+	const selfUserId = useRoomStore(roomStoreSelfUserIdSelector);
+
+	const selfPlayer = useMemo(() => {
+		return players.find((player) => player.id === selfUserId);
+	}, [ players, selfUserId ]);
 
 	const inputValueRef = useRef('');
 	const [ inputValue, setInputValue ] = useState('');
@@ -37,12 +44,14 @@ export const RoomControlsAnswerPicker = memo<Props>(({ disabled }) => {
 		!!option?.value && socket.emitWithAck('answer', option.value);
 	}, []);
 
+	const isDisabled = !!selfPlayer?.hasRightAnswer;
+
 	return (
 		<div className={'flex justify-center'}>
 			<Select
 				placeholder={'Введите название по постеру'}
 				className={'w-full'}
-				isDisabled={disabled}
+				isDisabled={isDisabled}
 				onChange={handleOptionChange}
 				onInputChange={handleInputValueChange}
 				options={options}

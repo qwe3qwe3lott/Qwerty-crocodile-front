@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import {
+	Answer,
 	AnswerAdapter,
 	DrawEvent,
 	Player,
@@ -20,6 +21,7 @@ type RoomStoreState = {
 	drawEvents: DrawEvent[];
 	state: RoomState;
 	timerState: TimerState | null;
+	answer: Answer | null;
 	answerAdapter: AnswerAdapter;
 };
 
@@ -32,6 +34,7 @@ const generateRoomStoreInitialState = (): RoomStoreState => ({
 	drawEvents: [ { type: 'fill', color: 'white' } ],
 	state: 'idle',
 	timerState: null,
+	answer: null,
 	answerAdapter: new ShikimoriAnswerAdapter(),
 });
 
@@ -45,6 +48,7 @@ type RoomStoreActions = {
 	clearDrawEvents: () => void;
 	setState: (state: RoomState) => void;
 	setTimerState: (timerState: TimerState | null) => void;
+	setAnswer: (answer: Answer | null) => void;
 	applyStateTransaction: (transaction: StateTransaction) => void;
 	reset: () => void;
 };
@@ -62,10 +66,11 @@ export const useRoomStore = create<RoomStore>()(devtools((set, get) => ({
 	clearDrawEvents: () => set({ drawEvents: [] }),
 	setState: (state) => set({ state }),
 	setTimerState: (timerState) => set({ timerState }),
+	setAnswer: (answer) => set({ answer }),
 	applyStateTransaction: (transaction) => {
 		switch (transaction.state) {
 			case 'idle': {
-				set({ state: transaction.state, players: [], artistId: '', timerState: null });
+				set({ state: transaction.state, players: [], artistId: '', timerState: null, answer: null });
 				break;
 			}
 			case 'round': {
@@ -74,11 +79,12 @@ export const useRoomStore = create<RoomStore>()(devtools((set, get) => ({
 					players: transaction.players,
 					artistId: transaction.artistId,
 					timerState: transaction.timerState,
+					answer: transaction.answer,
 				});
 				break;
 			}
 			case 'timeout': {
-				set({ state: transaction.state, timerState: transaction.timerState });
+				set({ state: transaction.state, timerState: transaction.timerState, answer: transaction.answer });
 				break;
 			}
 		}
@@ -95,6 +101,7 @@ export const roomStoreDrawEventsSelector = (state: RoomStore) => state.drawEvent
 export const roomStoreStateSelector = (state: RoomStore) => state.state;
 export const roomStoreClearDrawEventsSelector = (state: RoomStore) => state.clearDrawEvents;
 export const roomStoreTimerStateSelector = (state: RoomStore) => state.timerState;
+export const roomStoreAnswerSelector = (state: RoomStore) => state.answer;
 export const roomStoreAnswerAdapterSelector = (state: RoomStore) => state.answerAdapter;
 
 type DrawAreaStoreState = {
